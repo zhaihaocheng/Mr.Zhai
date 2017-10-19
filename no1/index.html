@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<script src="js/angular.min.js"></script>
+	<style>
+	.ng-cloak{
+		display: none;
+	}
+	</style>
+</head>
+<body ng-cloak class="ng-cloak">
+	<form name="myForm" action="01-form.html">
+		<textarea ng-model="name" ng-maxlength="60"required></textarea>
+
+		<input type="submit" ng-disabled="!myForm.$valid">
+
+	</form>
+	<script>
+	var app=angular.module("app",[]);
+	app.controller("ctrl",function($scope){
+
+	})
+	</script>
+</body>
+</html>
