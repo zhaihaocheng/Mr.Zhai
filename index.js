@@ -1,32 +1,20 @@
 var express = require('express');
 var router = express.Router();
-var fs = require('fs');
-
+var fs=require('fs');
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    var data=fs.readFileSync('we.txt','utf-8');
-    console.log(data)
-     data=data.split(':')[1];
- data++
- fs.writeFileSync('we.txt',"刷新页面:"+data);
-
-
-  res.render('index', { title:"刷新页面:"+data});
+router.post('/', function(req, res, next) {
+    // res.readFile("public/wenjian.txt","utf-8",function(err,data){
+    res.header('Access-Control-Allow-Origin','*')    ;
+   fs.readFile("public/wenjian.txt","utf-8",function(err,data){
+       var str=JSON.parse(data);
+       str.push({name:req.body.name});
+       console.log(str);
+       fs.writeFile('public/wenjian.txt',JSON.stringify(str),function(err){
+           fs.readFile("public/wenjian.txt","utf-8",function(err,ccc){
+               var data=JSON.parse(ccc);
+               res.send({name:data})
+           })
+       })
+   })
 });
-
-router.get('/hc', function(req, res, next) {
-    var data=fs.readFileSync('on.txt','utf-8');
-    console.log(data);
-    data=data.split(':')[1];
-    if(data>=10){
-        data=0
-    }
-    data++;
-    fs.writeFileSync('on.txt',"刷新页面:"+data)lnn
-     mn
-
-
-    res.render('index', { title:"刷新页面:"+data});
-});
-
-module.exports = router;
+ module.exports = router;
